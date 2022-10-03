@@ -28,7 +28,7 @@ from smdebug.pytorch import get_hook
 
 #TODO: Import dependencies for Debugging andd Profiling
 
-def test(model, test_loader, criterion, device):
+def test(model, test_loader, criterion, device,hook):
     '''
     TODO: Complete this function that can take a model and a 
           testing data loader and will get the test accuray/loss of the model
@@ -36,9 +36,8 @@ def test(model, test_loader, criterion, device):
     '''
     
     logger.info("start testing....")
-    hook = get_hook(create_if_not_exists=True)
-    if hook:
-        hook.set_mode(smd.modes.EVAL)
+    
+    hook.set_mode(smd.modes.EVAL)
     model.eval()
     test_loss = 0
     running_loss = 0
@@ -63,24 +62,17 @@ def test(model, test_loader, criterion, device):
         ))
     
 
-def train(model, train_loader,validate_loader, criterion, optimizer, device, args):
+def train(model, train_loader,validate_loader, criterion, optimizer, device, args,hook):
     '''
     TODO: Complete this function that can take a model and
           data loaders for training and will get train the model
           Remember to include any debugging/profiling hooks that you might need
     '''
-    
-    hook = get_hook(create_if_not_exists=True)
-    if hook:
-        
-        hook.register_loss(criterion)
-        hook.register_hook(model)
-    
-        
+ 
     for epoch in range(1, args.epochs + 1):
         logger.info("Start training....")
-        if hook:
-            hook.set_mode(smd.modes.TRAIN)
+        
+        hook.set_mode(smd.modes.TRAIN)
         model.train()
         running_loss = 0
         train_correct = 0 
@@ -98,8 +90,8 @@ def train(model, train_loader,validate_loader, criterion, optimizer, device, arg
             
             
         logger.info("Start Validating.....")
-        if hook:
-            hook.set_mode(smd.modes.EVAL)
+        
+        hook.set_mode(smd.modes.EVAL)
         model.eval()
         validate_loss = 0
         val_correct = 0
@@ -188,28 +180,29 @@ def main(args):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.fc.parameters(), lr = args.lr)
     
-    
+    hook = smd.Hook.create_from_json_file()
+    hook.register_module(model)
+    hook.register_loss(criterion)
     '''
     TODO: Call the train function to start training your model
     Remember that you will need to set up a way to get training data from S3
     '''
-    train_loader = create_data_loaders(args.data_dir_train , args.batch_size , "training")
-    val_loader = create_data_loaders(args.data_dir_valid , args.batch_size , "validating")
+    train_loader = create_data_loaders(args.train , args.batch_size , "training")
+    val_loader = create_data_loaders(args.valid , args.batch_size , "validating")
 
-    model=train(model, train_loader,val_loader, criterion, optimizer, device, args)
+    model=train(model, train_loader,val_loader, criterion, optimizer, device, args,hook)
     
     '''
     TODO: Test the model to see its accuracy
     '''
-    test_loader = create_data_loaders(args.data_dir_test , args.test_batch_size , "testing")
-    test(model, test_loader, criterion, device)
+    test_loader = create_data_loaders(args.test , args.test_batch_size , "testing")
+    test(model, test_loader, criterion, device,hook)
     
     '''
     TODO: Save the trained model
     '''
-    path = os.path.join(args.model_dir, "model.pth")
-    logger.info(f"Saving the model in {path}.")
-    torch.save(model, path)
+    with open(os.path.join(args.model_dir, 'model.pth'), 'wb') as f:
+        torch.save(model.state_dict(), f)
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
@@ -249,9 +242,9 @@ if __name__=='__main__':
     parser.add_argument("--hosts", type=list, default=json.loads(os.environ["SM_HOSTS"]))
     parser.add_argument("--current-host", type=str, default=os.environ["SM_CURRENT_HOST"])
     parser.add_argument("--model-dir", type=str, default=os.environ["SM_MODEL_DIR"])
-    parser.add_argument("--data-dir-train", type=str, default=os.environ["SM_CHANNEL_TRAIN"])
-    parser.add_argument("--data-dir-test", type=str, default=os.environ["SM_CHANNEL_TEST"])
-    parser.add_argument("--data-dir-valid", type=str, default=os.environ["SM_CHANNEL_VAL"])
+    parser.add_argument("--train", type=str, default=os.environ["SM_CHANNEL_TRAIN"])
+    parser.add_argument("--test", type=str, default=os.environ["SM_CHANNEL_TEST"])
+    parser.add_argument("--valid", type=str, default=os.environ["SM_CHANNEL_EVAL"])
     parser.add_argument("--num-gpus", type=int, default=os.environ["SM_NUM_GPUS"])
     
     args=parser.parse_args()
