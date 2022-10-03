@@ -36,9 +36,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 - The Resnet50 used to learn the data because it is trained on a lot of data and it's concolution can get the general feature 
 - One fully connected layer is used on top of resnet50 to predict 133 number of dog breed
 - Batch- size, Epochs, and Learning rate are used to search for the best model in  the tunning hyperparameters step
-     batch size : [32,64,128,256,512]
-     epochs : (6,8)
-     lr : (0.001,0.1)
+     - batch size : [32,64,128,256,512]
+     - epochs : (6,8)
+     - lr : (0.001,0.1)
  ![Completed Training Jobs](images/hyperparametesjobs.png "completed training jobs")
  ![Logs metrics during the training process](images/training-job-log.png "Logs metrics during the training process")
  ![All Jobs](images/hyperparametes.png "All hyperparameters jobs")
@@ -48,7 +48,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 ## Debugging and Profiling
 ### Debugger Output
 The Graphical representation of the Cross Entropy Loss.
-![Cross Entropy Loss](images/tensor_plot.png "Cross Entropy Loss")### Results
+![Cross Entropy Loss](images/tensor_plot.png "Cross Entropy Loss")
 ### Profiler Output
 The profiler report can be found [here](profile-output/profiler-report.html).
 
@@ -56,8 +56,10 @@ The profiler report can be found [here](profile-output/profiler-report.html).
 - Model was deployed to a "ml.m5.large" instance type and "endpoint_inference.py" script is used to setup and deploy our working endpoint.
 - For testing purposes ,one test images are stored in the "images" folder.
 - image are fed to the endpoint for inference.
-![prediction](images/Affenpinscher_00078.png "prediction")
+![image](images/Affenpinscher_00078.jpg "image")
 ### Inference Response
 ![Inference Response](images/response.png "Inference Response")
-### Model Dndpoint
+![prediction](images/Affenpinscher_00078.png "prediction")
+
+### Model Endpoint
 ![End Point Deployment](images/endpoint.jpg "End Point")

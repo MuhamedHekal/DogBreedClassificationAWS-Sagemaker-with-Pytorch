@@ -61,5 +61,5 @@ The profiler report can be found [here](profile-output/profiler-report.html).
 ![Inference Response](images/response.png "Inference Response")
 ![prediction](images/Affenpinscher_00078.png "prediction")
 
-### Model Dndpoint
+### Model Endpoint
 ![End Point Deployment](images/endpoint.jpg "End Point")
