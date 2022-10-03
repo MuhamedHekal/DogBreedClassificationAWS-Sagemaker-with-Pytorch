@@ -12,7 +12,7 @@ The following tasks are performed.
 Enter AWS through the gateway in the course and open SageMaker Studio. 
 Download the starter files.
 Download/Make the dataset available. 
-You can use this link to get the starter files(https://github.com/udacity/CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter)
+You can use this link to get the starter ![files](https://github.com/udacity/CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter)
 ## Dataset
 Udacity's Dog Breed Classification Data set is used.
 The dataset can be downloaded [here](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip).
