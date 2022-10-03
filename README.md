@@ -12,7 +12,7 @@ The following tasks are performed.
 Enter AWS through the gateway in the course and open SageMaker Studio. 
 Download the starter files.
 Download/Make the dataset available. 
-You can use this link to get the starter ![files](https://github.com/udacity/CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter)
+You can use this link to get the starter [files](https://github.com/udacity/CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter)
 ## Dataset
 Udacity's Dog Breed Classification Data set is used.
 The dataset can be downloaded [here](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip).
@@ -50,7 +50,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 The Graphical representation of the Cross Entropy Loss.
 ![Cross Entropy Loss](images/tensor_plot.png "Cross Entropy Loss")
 ### Profiler Output
-The profiler report can be found [here](profile-output/profiler-report.html).
+The profiler report can be found [here](ProfileReport/profile-output/profiler-report.html).
 
 ## Model Deployment
 - Model was deployed to a "ml.m5.large" instance type and "endpoint_inference.py" script is used to setup and deploy our working endpoint.
