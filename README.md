@@ -63,3 +63,13 @@ The profiler report can be found [here](ProfilerReport/profiler-report.html).
 
 ### Model Endpoint
 ![End Point Deployment](images/endpoint.jpg "End Point")
+
+### Invoke Endpoint by Lambda Function
+![Invoke Result](images/lambda-result.png "invoking")
+
+### Securing Lambda function and endpoint connection with IAM role
+ ![Securing connection](images/IAM-role-for-lambda.png "IAM role")
+
+## High Troughput and Low Latency Handling (concurrency and auto-scaling)
+![Lambda concurrency](images/Lambda-concurrency.png "Lambda Concurrency")
+![Endpoint Auto-scaling](images/auto-scaling-endpoint.png "End Point auto-scaling")
