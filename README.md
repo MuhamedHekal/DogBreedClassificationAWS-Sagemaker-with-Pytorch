@@ -68,12 +68,12 @@ The profiler report can be found [here](ProfilerReport/profiler-report.html).
 ![Invoke Result](images/lambda-result.png "invoking result")
 
 ### Securing Lambda function and endpoint connection with IAM role
--for security manner, we add only the specific role to perform this task not Full Access to Sagemaker to limit the access for lambda and limit any security vulnerabilities.
+- for security manner, we add only the specific role to perform this task not Full Access to Sagemaker to limit the access for lambda and limit any security vulnerabilities.
 ![Securing connection](images/IAM-role-for-lambda.png "IAM role")
 
 ## High Troughput and Low Latency Handling (concurrency and auto-scaling)
--For concurrency I choose the Provisioned concurrency to make instances always on without requiring a wait for start-up time and that achieve low latency in high traffic and I choose to make 3 instance for concurrency and that cost 4.19$ in addition to pricing for duration and requests. 
+- For concurrency I choose the Provisioned concurrency to make instances always on without requiring a wait for start-up time and that achieve low latency in high traffic and I choose to make 3 instance for concurrency and that cost 4.19$ in addition to pricing for duration and requests. 
 
 ![Lambda concurrency](images/Lambda-concurrency.png "Lambda Concurrency")
--For Auto-Scaling to deal with high-requested gets from Lambda Function I use 3 maximum instance count for auto scaling and in Scale in cool down I will configure to start a new instance after 10 second if I get more than 15 requests in the same time and if I get less than 15 request in the same time for 1 minutes I close the additional instance that uses for deal with high throughput
+- For Auto-Scaling to deal with high-requested gets from Lambda Function I use 3 maximum instance count for auto scaling and in Scale in cool down I will configure to start a new instance after 10 second if I get more than 15 requests in the same time and if I get less than 15 request in the same time for 1 minutes I close the additional instance that uses for deal with high throughput
 ![Endpoint Auto-scaling](images/auto-scaling-endpoint.png "End Point auto-scaling")
