@@ -65,7 +65,7 @@ The profiler report can be found [here](ProfilerReport/profiler-report.html).
 ![End Point Deployment](images/endpoint.jpg "End Point")
 
 ### Invoke Endpoint by Lambda Function
-![Invoke Result](images/lambda-result.png "invoking")
+![Invoke Result](images/lambda-result.png "invoking result")
 
 ### Securing Lambda function and endpoint connection with IAM role
  ![Securing connection](images/IAM-role-for-lambda.png "IAM role")
